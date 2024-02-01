@@ -8,14 +8,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryUserRepositoryTestImpl implements UserRepository{
     private final Map<String, User> usersDatabase = new ConcurrentHashMap<>();
     @Override
-    public User save(User userToSave) {
-        User user = new User(
+    public User save(User entity) {
+        User userToSave = new User(
                 UUID.randomUUID().toString(),
-                userToSave.username(),
-                userToSave.password()
+                entity.username(),
+                entity.password()
         );
-        this.usersDatabase.put(user.username(), user);
-        return user;
+        this.usersDatabase.put(userToSave.username(), userToSave);
+        return userToSave;
     }
 
     @Override
