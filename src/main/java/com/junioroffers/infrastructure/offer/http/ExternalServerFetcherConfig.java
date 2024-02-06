@@ -32,6 +32,6 @@ public class ExternalServerFetcherConfig {
 
     @Bean
     public OfferFetchable externalServerFetcher(RestTemplate restTemplate) {
-        return new ExternalServerFetcher(restTemplate, properties.uri(), properties.port());
+        return new ExternalServerFetcher(restTemplate, properties.uri(), properties.port(), properties.service());
     }
 }

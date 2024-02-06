@@ -19,6 +19,7 @@ public class ExternalServerFetcher implements OfferFetchable {
     RestTemplate restTemplate;
     private final String uri;
     private final int port;
+    private final String service;
 
     @Override
     public List<JobOfferResponse> fetchOffers() {
@@ -26,7 +27,7 @@ public class ExternalServerFetcher implements OfferFetchable {
         HttpHeaders headers = new HttpHeaders();
         final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
         try {
-            String urlForService = getUrlForService("/offers");
+            String urlForService = getUrlForService(service);
             final String url = UriComponentsBuilder.fromHttpUrl(urlForService).toUriString();
             ResponseEntity<List<JobOfferResponse>> response = restTemplate.exchange(
                     url,
@@ -48,6 +49,6 @@ public class ExternalServerFetcher implements OfferFetchable {
     }
 
     private String getUrlForService(String service) {
-        return uri + ":" + port + service;
+        return uri + ":" + port + "/" + service;
     }
 }

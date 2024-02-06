@@ -11,3 +11,4 @@ offer:
         readTimeout: 5000
         port: 5057
         uri: http://ec2-3-120-147-150.eu-central-1.compute.amazonaws.com
+        service: offers

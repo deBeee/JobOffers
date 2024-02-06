@@ -7,5 +7,6 @@ public record ExternalServerFetcherConfigurationProperties(
         long connectionTimeout,
         long readTimeout,
         String uri,
-        int port) {
+        int port,
+        String service) {
 }
