@@ -1,6 +1,7 @@
 package com.junioroffers.infrastructure.offer.http;
 
 import com.junioroffers.domain.offer.OfferFetchable;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 @Configuration
+@AllArgsConstructor
 public class ExternalServerFetcherConfig {
+
+    private final ExternalServerFetcherConfigurationProperties properties;
 
     @Bean
     public RestTemplateResponseErrorHandler restTemplateResponseErrorHandler() {
@@ -18,20 +22,16 @@ public class ExternalServerFetcherConfig {
     }
 
     @Bean
-    public RestTemplate restTemplate(@Value("${offer.http.client.config.connectionTimeout}") long connectionTimeout,
-                                     @Value("${offer.http.client.config.readTimeout}") long readTimeout,
-                                     RestTemplateResponseErrorHandler restTemplateResponseErrorHandler) {
+    public RestTemplate restTemplate(RestTemplateResponseErrorHandler restTemplateResponseErrorHandler) {
         return new RestTemplateBuilder()
                 .errorHandler(restTemplateResponseErrorHandler)
-                .setConnectTimeout(Duration.ofMillis(connectionTimeout))
-                .setReadTimeout(Duration.ofMillis(readTimeout))
+                .setConnectTimeout(Duration.ofMillis(properties.connectionTimeout()))
+                .setReadTimeout(Duration.ofMillis(properties.readTimeout()))
                 .build();
     }
 
     @Bean
-    public OfferFetchable externalServerFetcher(RestTemplate restTemplate,
-                                                @Value("${offer.http.client.config.uri}") String uri,
-                                                @Value("${offer.http.client.config.port}") int port) {
-        return new ExternalServerFetcher(restTemplate, uri, port);
+    public OfferFetchable externalServerFetcher(RestTemplate restTemplate) {
+        return new ExternalServerFetcher(restTemplate, properties.uri(), properties.port());
     }
 }
