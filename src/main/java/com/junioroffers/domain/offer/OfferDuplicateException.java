@@ -15,7 +15,7 @@ public class OfferDuplicateException extends RuntimeException {
     }
 
     public OfferDuplicateException(String message, List<Offer> offers) {
-        super(String.format("error" + message + offers.toString()));
+        super("error" + message + offers.toString());
         this.offerUrls = offers.stream().map(Offer::url).toList();
     }
 }

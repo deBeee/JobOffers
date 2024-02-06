@@ -46,7 +46,7 @@ class JobOfferSampleTestData {
                 jobOfferResponse.title(),
                 jobOfferResponse.company(),
                 jobOfferResponse.salary(),
-                jobOfferResponse.url()
+                jobOfferResponse.offerUrl()
         );
     }
 }
