@@ -3,7 +3,6 @@ package com.junioroffers.domain.offer;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 class OfferService {
@@ -25,7 +24,7 @@ class OfferService {
         return jobOffers.stream()
                 .filter(offerDto -> !offerDto.url().isEmpty())
                 .filter(offerDto -> !offerRepository.existsByOfferUrl(offerDto.url()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Offer> fetchOffers() {

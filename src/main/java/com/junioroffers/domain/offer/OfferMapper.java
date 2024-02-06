@@ -30,7 +30,7 @@ public interface OfferMapper {
                 .title(jobOfferResponse.title())
                 .company(jobOfferResponse.company())
                 .salary(jobOfferResponse.salary())
-                .url(jobOfferResponse.url())
+                .url(jobOfferResponse.offerUrl())
                 .build();
     }
 
