@@ -22,6 +22,7 @@
         <assertj.version>3.24.2</assertj.version>
         <testcontainers.version>1.17.4</testcontainers.version>
         <wiremock-jre8.version>2.35.1</wiremock-jre8.version>
+        <awaitility.version>4.2.0</awaitility.version>
     </properties>
 
     <dependencies>
@@ -83,6 +84,13 @@
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
             <scope>compile</scope>
+        </dependency>
+        <!--  AWAITILITY -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
