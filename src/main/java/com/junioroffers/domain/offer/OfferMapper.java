@@ -4,12 +4,15 @@ import com.junioroffers.domain.offer.dto.OfferDto;
 import com.junioroffers.domain.offer.dto.OfferRequestDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OfferMapper {
     static List<OfferDto> mapListOfOfferToListOfOfferDto(List<Offer> offers) {
-        return offers.stream()
-                .map(OfferMapper::mapOfferToOfferDto)
-                .toList();
+        return Optional.ofNullable(offers)
+                .map(list -> list.stream()
+                        .map(OfferMapper::mapOfferToOfferDto)
+                        .toList())
+                .orElse(List.of());
     }
 
     static OfferDto mapOfferToOfferDto(Offer offer) {
