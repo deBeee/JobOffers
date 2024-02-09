@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
 import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 
 @SpringBootTest(classes = JobOffersSpringBootApplication.class, properties = "offer.scheduler.config.enabled=true")
-public class ExternalServerFetcherSchedulerTest extends BaseIntegrationTest {
+public class OfferHttpClientSchedulerTest extends BaseIntegrationTest {
 
     @SpyBean
     OfferFetchable externalServerFetcher;

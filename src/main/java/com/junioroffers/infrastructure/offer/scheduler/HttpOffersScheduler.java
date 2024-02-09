@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Log4j2
-public class ExternalServerFetcherScheduler {
+public class HttpOffersScheduler {
 
     private final OfferFacade offerFacade;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
