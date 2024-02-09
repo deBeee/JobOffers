@@ -1,0 +1,7 @@
+offer:
+  scheduler:
+    request:
+      delay: PT1S
+    config:
+      enabled: false
+

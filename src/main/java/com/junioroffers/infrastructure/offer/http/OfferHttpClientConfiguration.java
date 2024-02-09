@@ -2,7 +2,6 @@ package com.junioroffers.infrastructure.offer.http;
 
 import com.junioroffers.domain.offer.OfferFetchable;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +11,9 @@ import java.time.Duration;
 
 @Configuration
 @AllArgsConstructor
-public class ExternalServerFetcherConfig {
+public class OfferHttpClientConfiguration {
 
-    private final ExternalServerFetcherConfigurationProperties properties;
+    private final OfferHttpClientConfigurationProperties properties;
 
     @Bean
     public RestTemplateResponseErrorHandler restTemplateResponseErrorHandler() {
@@ -32,6 +31,6 @@ public class ExternalServerFetcherConfig {
 
     @Bean
     public OfferFetchable externalServerFetcher(RestTemplate restTemplate) {
-        return new ExternalServerFetcher(restTemplate, properties.uri(), properties.port(), properties.service());
+        return new OfferHttpClient(restTemplate, properties.uri(), properties.port(), properties.service());
     }
 }
