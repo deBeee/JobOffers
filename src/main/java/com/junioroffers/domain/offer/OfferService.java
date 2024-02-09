@@ -20,17 +20,17 @@ class OfferService {
         }
     }
 
-    private List<Offer> filterValidAndNotExistingInDatabaseOffers(List<Offer> jobOffers) {
-        return jobOffers.stream()
-                .filter(offerDto -> !offerDto.url().isEmpty())
-                .filter(offerDto -> !offerRepository.existsByOfferUrl(offerDto.url()))
-                .toList();
-    }
-
     private List<Offer> fetchOffers() {
         return offerFetcher.fetchOffers()
                 .stream()
                 .map(OfferMapper::mapJobOfferResponseToOffer)
+                .toList();
+    }
+
+    private List<Offer> filterValidAndNotExistingInDatabaseOffers(List<Offer> jobOffers) {
+        return jobOffers.stream()
+                .filter(offer -> !offer.url().isEmpty())
+                .filter(offer -> !offerRepository.existsByUrl(offer.url()))
                 .toList();
     }
 }
