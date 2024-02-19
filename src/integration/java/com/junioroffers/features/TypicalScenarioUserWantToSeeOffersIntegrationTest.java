@@ -5,7 +5,7 @@ import com.junioroffers.BaseIntegrationTest;
 import com.junioroffers.SampleJobOfferResponse;
 import com.junioroffers.domain.offer.OfferRepository;
 import com.junioroffers.domain.offer.dto.OfferDto;
-import com.junioroffers.infrastructure.offer.controller.AllOffersResponseDto;
+import com.junioroffers.infrastructure.offer.controller.dto.AllOffersResponseDto;
 import com.junioroffers.infrastructure.offer.scheduler.HttpOffersScheduler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         performGetOfferByIdEndpoint.andExpect(status().isNotFound())
                 .andExpect(content().json("""
                         {
-                        "message": "Offer with id 9999 not found",
+                        "message": "Offer with id=9999 not found",
                         "status": "NOT_FOUND"
                         }
                         """.trim()));

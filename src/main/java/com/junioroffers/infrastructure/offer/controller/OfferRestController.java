@@ -2,6 +2,7 @@ package com.junioroffers.infrastructure.offer.controller;
 
 import com.junioroffers.domain.offer.OfferFacade;
 import com.junioroffers.domain.offer.dto.OfferDto;
+import com.junioroffers.infrastructure.offer.controller.dto.AllOffersResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
