@@ -1,4 +1,4 @@
-package com.junioroffers.infrastructure.offer.controller.dto;
+package com.junioroffers.infrastructure.offer.controller;
 
 import com.junioroffers.domain.offer.dto.OfferDto;
 
