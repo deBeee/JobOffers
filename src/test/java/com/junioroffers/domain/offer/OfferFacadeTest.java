@@ -4,6 +4,7 @@ import com.junioroffers.domain.offer.dto.OfferDto;
 import com.junioroffers.domain.offer.dto.OfferRequestDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -95,7 +96,7 @@ class OfferFacadeTest {
         //then
         assertThatThrownBy(() -> offerFacade.findOfferById(sampleId))
                 .isInstanceOf(OfferNotFoundException.class)
-                .hasMessage("Offer with id '%s' not found".formatted(sampleId));
+                .hasMessage("Offer with id=%s not found".formatted(sampleId));
     }
 
     @Test
@@ -109,7 +110,7 @@ class OfferFacadeTest {
 
         //then
         assertThat(thrown)
-                .isInstanceOf(OfferDuplicateException.class)
+                .isInstanceOf(DuplicateKeyException.class)
                 .hasMessage("Offer with offerUrl '%s' already exists".formatted(SOLLERS_OFFER_REQUEST_DTO.url()));
     }
 }

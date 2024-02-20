@@ -7,5 +7,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @ConditionalOnProperty(name = "offer.scheduler.config.enabled")
-public class HttpOfferSchedulerConfiguration {
+class HttpOfferSchedulerConfiguration {
 }

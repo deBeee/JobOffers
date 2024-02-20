@@ -1,5 +1,6 @@
 package com.junioroffers.features;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.junioroffers.BaseIntegrationTest;
 import com.junioroffers.SampleJobOfferResponse;
@@ -10,13 +11,17 @@ import com.junioroffers.infrastructure.offer.scheduler.HttpOffersScheduler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseIntegrationTest implements SampleJobOfferResponse {
@@ -51,9 +56,9 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         //given
         String getOffersUrl = "/offers";
         //when
-        ResultActions perform = mockMvc.perform(get(getOffersUrl));
+        ResultActions performGetOffersEndpoint = mockMvc.perform(get(getOffersUrl));
         //then
-        MvcResult mvcResult = perform.andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = performGetOffersEndpoint.andExpect(status().isOk()).andReturn();
         String json = mvcResult.getResponse().getContentAsString();
         AllOffersResponseDto allOffersResponseDto = objectMapper.readValue(json, AllOffersResponseDto.class);
         List<OfferDto> offers = allOffersResponseDto.offers();
@@ -63,9 +68,69 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         //step 9: scheduler ran 2nd time and made GET to external server and system added 2 new offers with ids: 1000 and 2000 to database
         //step 10: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 2 offers with ids: 1000 and 2000
         //step 11: user made GET /offers/9999 and system returned NOT_FOUND(404) with message “Offer with id 9999 not found”
+
+        //given
+        String getOfferByIdUrl = "/offers/9999";
+        //when
+        ResultActions performGetOfferByIdEndpoint = mockMvc.perform(get(getOfferByIdUrl));
+        //then
+        performGetOfferByIdEndpoint.andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                        {
+                        "message": "Offer with id=9999 not found",
+                        "status": "NOT_FOUND"
+                        }
+                        """.trim()));
+
         //step 12: user made GET /offers/1000 and system returned OK(200) with offer
         //step 13: there are 2 new offers in external HTTP server
         //step 14: scheduler ran 3rd time and made GET to external server and system added 2 new offers with ids: 3000 and 4000 to database
         //step 15: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 4 offers with ids: 1000,2000, 3000 and 4000
+
+
+        //step 16: user made POST /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and offer as body and system returned CREATED(201) with saved offer
+        // given
+        // when
+        ResultActions performPostOffersWithOneOffer = mockMvc.perform(post("/offers")
+                .content("""
+                        {
+                        "title": "someTitle",
+                        "company": "someCompany",
+                        "salary": "7 000 - 9 000 PLN",
+                        "url": "https://newoffers.pl/offer/1234"
+                        }
+                        """)
+                .contentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+        );
+        // then
+        String createdOfferJson = performPostOffersWithOneOffer.andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        OfferDto parsedCreatedOfferJson = objectMapper.readValue(createdOfferJson, OfferDto.class);
+        String id = parsedCreatedOfferJson.id();
+        assertAll(
+                () -> assertThat(parsedCreatedOfferJson.title()).isEqualTo("someTitle"),
+                () -> assertThat(parsedCreatedOfferJson.company()).isEqualTo("someCompany"),
+                () -> assertThat(parsedCreatedOfferJson.salary()).isEqualTo("7 000 - 9 000 PLN"),
+                () -> assertThat(parsedCreatedOfferJson.url()).isEqualTo("https://newoffers.pl/offer/1234"),
+                () -> assertThat(id).isNotNull()
+        );
+
+
+        //step 17: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 1 offer
+        // given & when
+        ResultActions peformGetOffers = mockMvc.perform(get("/offers")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+        // then
+        String oneOfferJson = peformGetOffers.andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        AllOffersResponseDto parsedJsonWithOneOffer = objectMapper.readValue(oneOfferJson, AllOffersResponseDto.class);
+        assertThat(parsedJsonWithOneOffer.offers()).hasSize(1);
+        assertThat(parsedJsonWithOneOffer.offers().stream().map(OfferDto::id)).contains(id);
     }
 }
