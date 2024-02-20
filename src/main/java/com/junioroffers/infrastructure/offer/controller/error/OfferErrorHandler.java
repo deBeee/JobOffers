@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = OfferRestController.class)
 @Log4j2
-public class OfferErrorHandler {
+class OfferErrorHandler {
 
     @ExceptionHandler(OfferNotFoundException.class)
     public ResponseEntity<OfferNotFoundResponseDto> handleOfferNotFoundException(OfferNotFoundException exception) {

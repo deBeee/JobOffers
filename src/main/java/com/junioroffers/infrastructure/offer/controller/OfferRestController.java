@@ -2,14 +2,14 @@ package com.junioroffers.infrastructure.offer.controller;
 
 import com.junioroffers.domain.offer.OfferFacade;
 import com.junioroffers.domain.offer.dto.OfferDto;
+import com.junioroffers.domain.offer.dto.OfferRequestDto;
 import com.junioroffers.infrastructure.offer.controller.dto.AllOffersResponseDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +30,11 @@ public class OfferRestController {
     public ResponseEntity<OfferDto> getOfferById(@PathVariable String id){
         OfferDto offer = this.offerFacade.findOfferById(id);
         return ResponseEntity.ok(offer);
+    }
+
+    @PostMapping
+    public ResponseEntity<OfferDto> addOffer(@RequestBody @Valid OfferRequestDto offerRequestDto){
+        OfferDto savedOffer = this.offerFacade.saveOffer(offerRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedOffer);
     }
 }
