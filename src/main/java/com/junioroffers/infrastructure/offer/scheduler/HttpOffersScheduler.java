@@ -20,10 +20,11 @@ public class HttpOffersScheduler {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedDelayString = "${offer.scheduler.request.delay}")
-    public void fetchAllOffersAndSaveAllIfNotExists() {
+    public List<OfferDto> fetchAllOffersAndSaveAllIfNotExists() {
         log.info("Started offers fetching {}", dateFormat.format(new Date()));
         final List<OfferDto> savedOffers = offerFacade.fetchAllOffersAndSaveAllIfNotExists();
         log.info("Added new {} offers", savedOffers.size());
         log.info("Stopped offers fetching {}", dateFormat.format(new Date()));
+        return savedOffers;
     }
 }
