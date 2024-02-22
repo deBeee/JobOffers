@@ -1,9 +1,12 @@
 package com.junioroffers.domain.loginandregister;
 
-import java.util.Optional;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
-    User save(User userToSave);
+import java.util.Optional;
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+//    User save(User userToSave);
 
     Optional<User> findByUsername(String username);
 }
