@@ -1,9 +1,8 @@
-package com.junioroffers.infrastructure.token.controller.error;
+package com.junioroffers.infrastructure.loginandregister.controller.error;
 
-import com.junioroffers.infrastructure.token.controller.TokenController;
+import com.junioroffers.infrastructure.loginandregister.controller.TokenController;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

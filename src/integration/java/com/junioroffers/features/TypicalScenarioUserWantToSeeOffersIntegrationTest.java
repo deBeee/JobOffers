@@ -3,6 +3,7 @@ package com.junioroffers.features;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.junioroffers.BaseIntegrationTest;
 import com.junioroffers.SampleJobOfferResponse;
+import com.junioroffers.domain.loginandregister.dto.RegistrationResultDto;
 import com.junioroffers.domain.offer.OfferFacade;
 import com.junioroffers.domain.offer.dto.OfferDto;
 import com.junioroffers.infrastructure.offer.controller.AllOffersResponseDto;
@@ -67,8 +68,35 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
                         """.trim()));
 
 
-        //step 4: user made GET /offers with no jwt token and system returned UNAUTHORIZED(401)
-        //step 5: user made POST /register with username=someUser, password=somePassword and system registered user with status OK(200)
+        //step 4: user made GET /offers with no jwt token and system returned FORBIDDEN(403)
+        //given & when
+        ResultActions failedGetOffersRequest = mockMvc.perform(get("/offers"));
+        //then
+        failedGetOffersRequest.andExpect(status().isForbidden());
+
+
+        //step 5: user made POST /register with username=someUser, password=somePassword and system registered user with status CREATED(201)
+        // given & when
+        ResultActions registerAction = mockMvc.perform(post("/register")
+                .content("""
+                        {
+                        "username": "someUser",
+                        "password": "somePassword"
+                        }
+                        """.trim())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+        // then
+        MvcResult registerActionResult = registerAction.andExpect(status().isCreated()).andReturn();
+        String registerActionResultJson = registerActionResult.getResponse().getContentAsString();
+        RegistrationResultDto registrationResultDto = objectMapper.readValue(registerActionResultJson, RegistrationResultDto.class);
+        assertAll(
+                () -> assertThat(registrationResultDto.username()).isEqualTo("someUser"),
+                () -> assertThat(registrationResultDto.isCreated()).isTrue(),
+                () -> assertThat(registrationResultDto.userId()).isNotNull()
+        );
+
+
         //step 6: user tried to get JWT token by requesting POST /token with username=someUser, password=somePassword and system returned OK(200) and jwttoken=AAAA.BBBB.CCC
         //step 7: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 0 offers
         //given

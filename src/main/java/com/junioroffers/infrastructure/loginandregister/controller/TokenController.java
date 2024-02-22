@@ -1,10 +1,12 @@
-package com.junioroffers.infrastructure.token.controller;
+package com.junioroffers.infrastructure.loginandregister.controller;
 
 import com.junioroffers.infrastructure.security.jwt.JwtAuthenticatorFacade;
 import javax.validation.Valid;
+
+import com.junioroffers.infrastructure.loginandregister.controller.dto.JwtResponseDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.TokenRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

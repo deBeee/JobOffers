@@ -1,7 +1,7 @@
 package com.junioroffers.infrastructure.security.jwt;
 
-import com.junioroffers.infrastructure.token.controller.JwtResponseDto;
-import com.junioroffers.infrastructure.token.controller.TokenRequestDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.JwtResponseDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.TokenRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

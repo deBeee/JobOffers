@@ -1,4 +1,4 @@
-package com.junioroffers.infrastructure.token.controller;
+package com.junioroffers.infrastructure.loginandregister.controller.dto;
 
 import lombok.Builder;
 
