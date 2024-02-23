@@ -153,7 +153,8 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
 
         //step 10: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 2 offers with ids: 1000 and 2000
         // given & when
-        ResultActions performGetAndExpectTwoOffers = mockMvc.perform(get(getOffersUrl));
+        ResultActions performGetAndExpectTwoOffers = mockMvc.perform(get(getOffersUrl)
+                .header("Authorization", "Bearer " + token));
         //then
         MvcResult performGetAndExpectTwoOffersMvcResult = performGetAndExpectTwoOffers.andExpect(status().isOk()).andReturn();
         String jsonWithTwoOffers = performGetAndExpectTwoOffersMvcResult.getResponse().getContentAsString();
@@ -173,7 +174,8 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         //given
         String getOfferByNoExistingIdUrl = "/offers/9999";
         //when
-        ResultActions performGetOfferByIdEndpoint = mockMvc.perform(get(getOfferByNoExistingIdUrl));
+        ResultActions performGetOfferByIdEndpoint = mockMvc.perform(get(getOfferByNoExistingIdUrl)
+                .header("Authorization", "Bearer " + token));
         //then
         performGetOfferByIdEndpoint.andExpect(status().isNotFound())
                 .andExpect(content().json("""
@@ -189,7 +191,8 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         String offerIdAddedToDatabase = expectedFirstOffer.id();
         String getOfferByExistingIdUrl = "/offers" + "/" + offerIdAddedToDatabase;
         //when
-        ResultActions performGetAndExpectExistingOffer = mockMvc.perform(get(getOfferByExistingIdUrl));
+        ResultActions performGetAndExpectExistingOffer = mockMvc.perform(get(getOfferByExistingIdUrl)
+                .header("Authorization", "Bearer " + token));
         //then
         String singleOfferJson = performGetAndExpectExistingOffer.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         OfferDto singleOfferDto = objectMapper.readValue(singleOfferJson, OfferDto.class);
@@ -213,7 +216,8 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
 
 
         //step 15: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 4 offers with ids: 1000,2000, 3000 and 4000
-        ResultActions performGetAndExpectFourOffers = mockMvc.perform(get(getOffersUrl));
+        ResultActions performGetAndExpectFourOffers = mockMvc.perform(get(getOffersUrl)
+                .header("Authorization", "Bearer " + token));
         //then
         MvcResult performGetAndExpectFourOffersMvcResult = performGetAndExpectFourOffers.andExpect(status().isOk()).andReturn();
         String jsonWithFourOffers = performGetAndExpectFourOffersMvcResult.getResponse().getContentAsString();
@@ -233,6 +237,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         // given
         // when
         ResultActions performPostOffersWithOneOffer = mockMvc.perform(post("/offers")
+                .header("Authorization", "Bearer " + token)
                 .content("""
                         {
                         "title": "someTitle",
@@ -263,8 +268,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         //step 17: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 5 offers
         // given & when
         ResultActions peformGetOffers = mockMvc.perform(get("/offers")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-        );
+                .header("Authorization", "Bearer " + token));
         // then
         String oneOfferJson = peformGetOffers.andExpect(status().isOk())
                 .andReturn()
