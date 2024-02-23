@@ -3,7 +3,7 @@ package com.junioroffers.infrastructure.offer.controller;
 import com.junioroffers.domain.offer.OfferFacade;
 import com.junioroffers.domain.offer.dto.OfferDto;
 import com.junioroffers.domain.offer.dto.OfferRequestDto;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

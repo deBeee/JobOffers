@@ -1,7 +1,7 @@
 package com.junioroffers.domain.offer.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public record OfferRequestDto(
         @NotNull(message = "{title.not.null}")

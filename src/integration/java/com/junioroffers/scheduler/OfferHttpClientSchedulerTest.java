@@ -17,12 +17,12 @@ import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 public class OfferHttpClientSchedulerTest extends BaseIntegrationTest {
 
     @SpyBean
-    OfferFetchable externalServerFetcher;
+    OfferFetchable remoteOfferClient;
 
     @Test
     public void should_run_http_client_offers_fetching_exactly_given_times() {
         await().
                 atMost(Duration.ofSeconds(2, 10))
-                .untilAsserted(() -> verify(externalServerFetcher, times(2)).fetchOffers());
+                .untilAsserted(() -> verify(remoteOfferClient, times(2)).fetchOffers());
     }
 }
