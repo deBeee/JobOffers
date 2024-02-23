@@ -3,6 +3,7 @@ package com.junioroffers.domain.offer;
 import com.junioroffers.domain.offer.dto.OfferRequestDto;
 import com.junioroffers.domain.offer.dto.OfferDto;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class OfferFacade {
     private final OfferRepository offerRepository;
     private final OfferService offerService;
 
+    @Cacheable(cacheNames = "jobOffers")
     public List<OfferDto> findAllOffers(){
         List<Offer> offers = this.offerRepository.findAll();
         return mapListOfOfferToListOfOfferDto(offers);
