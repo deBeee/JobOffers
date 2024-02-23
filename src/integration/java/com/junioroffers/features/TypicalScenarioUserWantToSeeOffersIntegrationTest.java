@@ -6,6 +6,7 @@ import com.junioroffers.SampleJobOfferResponse;
 import com.junioroffers.domain.loginandregister.dto.RegistrationResultDto;
 import com.junioroffers.domain.offer.OfferFacade;
 import com.junioroffers.domain.offer.dto.OfferDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.JwtResponseDto;
 import com.junioroffers.infrastructure.offer.controller.AllOffersResponseDto;
 import com.junioroffers.infrastructure.offer.scheduler.HttpOffersScheduler;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -98,11 +100,33 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
 
 
         //step 6: user tried to get JWT token by requesting POST /token with username=someUser, password=somePassword and system returned OK(200) and jwttoken=AAAA.BBBB.CCC
+        // given & when
+        ResultActions successLoginRequest = mockMvc.perform(post("/token")
+                .content("""
+                        {
+                        "username": "someUser",
+                        "password": "somePassword"
+                        }
+                        """.trim())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+        // then
+        MvcResult successLoginRequestResult = successLoginRequest.andExpect(status().isOk()).andReturn();
+        String successLoginRequestResultJson = successLoginRequestResult.getResponse().getContentAsString();
+        JwtResponseDto jwtResponse = objectMapper.readValue(successLoginRequestResultJson, JwtResponseDto.class);
+        String token = jwtResponse.token();
+        assertAll(
+                () -> assertThat(jwtResponse.username()).isEqualTo("someUser"),
+                () -> assertThat(token).matches(Pattern.compile("^([A-Za-z0-9-_=]+\\.)+([A-Za-z0-9-_=])+\\.?$"))
+        );
+
+
         //step 7: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 0 offers
         //given
         String getOffersUrl = "/offers";
         //when
-        ResultActions performGetAndExpectNoOffers = mockMvc.perform(get(getOffersUrl));
+        ResultActions performGetAndExpectNoOffers = mockMvc.perform(get(getOffersUrl)
+                .header("Authorization", "Bearer " + token));
         //then
         MvcResult mvcResult = performGetAndExpectNoOffers.andExpect(status().isOk()).andReturn();
         String json = mvcResult.getResponse().getContentAsString();
