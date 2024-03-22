@@ -1,7 +1,7 @@
 package com.junioroffers.domain.loginandregister;
 
-import com.junioroffers.domain.loginandregister.dto.RegisterUserDto;
-import com.junioroffers.domain.loginandregister.dto.RegistrationResultDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.RegisterUserDto;
+import com.junioroffers.infrastructure.loginandregister.controller.dto.RegistrationResultDto;
 import com.junioroffers.domain.loginandregister.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
