@@ -15,7 +15,7 @@ public class OfferFacade {
     private final OfferRepository offerRepository;
     private final OfferService offerService;
 
-    @Cacheable(cacheNames = "jobOffers")
+    //@Cacheable(cacheNames = "jobOffers")
     public List<OfferDto> findAllOffers(){
         List<Offer> offers = this.offerRepository.findAll();
         return mapListOfOfferToListOfOfferDto(offers);
