@@ -46,7 +46,7 @@ services:
     image: 891377112649.dkr.ecr.eu-central-1.amazonaws.com/job-offers:latest
     restart: always
     ports:
-      - '8000:8080'
+      - '8080:8000'
     environment:
       MONGO_USER: admin
       MONGO_PASSWORD: admin
@@ -56,3 +56,10 @@ services:
       MONGO_AUTH_SOURCE: admin
 #      REDIS_HOST: redis
 #      REDIS_PORT: 6379
+
+  joboffers-frontend:
+    container_name: joboffers-frontend
+    image: 891377112649.dkr.ecr.eu-central-1.amazonaws.com/joboffers-frontend:latest
+    restart: always
+    ports:
+      - '80:80'
