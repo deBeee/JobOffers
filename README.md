@@ -57,6 +57,12 @@ Frontend:<br>
 ![Static Badge](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) &nbsp;
 ![Static Badge](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) &nbsp;
 
+Frontend repository: https://github.com/deBeee/joboffers-frontend
+
+### Architecture
+![Architecture diagram](/architecture/detailed_JobOffers_architecture_diagram.png)
+
+
 ### Endpoints
 The application exposes the following endpoints:
 
@@ -82,6 +88,8 @@ http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000/swagger-ui/index.
 Alternatively, you can manually send requests (e.g., using Postman) to:  
 http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000      
 Remember to append the mentioned earlier endpoints and provide required request data 
+
+
 
 
 
