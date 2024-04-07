@@ -4,7 +4,14 @@
 
 ### Web application aimed at assisting Junior Java Developers in finding the optimal job offers!
 
-JobOffers is a web application built on Spring Boot, designed to aggregate job offers for Junior Java Developers from various sources. Currently it retrieves offers from external server at scheduled intervals. Leveraging Spring Boot Security, the application ensures authentication process for users to access its functionalities. Users are required to register on the platform, whereupon receiving a unique token granting access to view existing offers and add new ones. For a user-friendly interface, a simple frontend using Angular is implemented. The application is deployed on AWS and can be accessed at:
+JobOffers is a web application built on Spring Boot, designed to aggregate job offers for
+Junior Java Developers. It retrieves offers from external server at
+scheduled intervals. Leveraging Spring Boot Security, the application ensures authentication process for users to access
+its functionalities. Users are required to register on the platform. Then, after successful login, they receive JWT
+token. This token should be included in the header of each
+request to authenticate the user enabling them to view existing offers and add new ones.
+For a user-friendly interface I have implemented intuitive frontend in Angular.
+Everything is deployed on AWS and can be accessed at:
 
 http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com
 
@@ -13,17 +20,13 @@ http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com
 - Spring Boot Web app
 - Uses Facade design pattern
 - Built on a modular monolith hexagonal architecture
-- Stores offers and user data in NoSQL database (MongoDB)
+- Stores offers and users data in NoSQL database (MongoDB)
 - Ensures code coverage with unit and integration tests
-- Fetches offers from external server on a schedule
+- Fetches offers from external server on a schedule using RestTemplate
 - Implements token authentication with Spring Boot Security
 - Utilizes Redis database caching
 - Features Angular frontend
 - Deployed on an AWS Linux EC2 server
-
-
-
-
 
 
 ### Technologies
@@ -44,7 +47,7 @@ Testing:<br>
 ![Static Badge](https://img.shields.io/badge/Mockito-78A641?style=for-the-badge) &nbsp;
 ![Static Badge](https://img.shields.io/badge/Testcontainers-9B489A?style=for-the-badge) &nbsp;
 ![Static Badge](https://img.shields.io/badge/awaitility-green?style=for-the-badge)
-
+    
 Deployment:<br>
 ![Static Badge](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) &nbsp;
 ![Static Badge](https://img.shields.io/badge/amazon%20ec2-rgb(236%2C%20217%2C%20198)?style=for-the-badge&logo=amazonec2) &nbsp;
@@ -53,6 +56,8 @@ Deployment:<br>
 
 
 Frontend:<br>
+![Static Badge](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) &nbsp;
+![Static Badge](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) &nbsp;
 ![Static Badge](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white) &nbsp;
 ![Static Badge](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) &nbsp;
 ![Static Badge](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) &nbsp;
@@ -87,7 +92,7 @@ To interact with the app, you can use Swagger:
 http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
 Alternatively, you can manually send requests (e.g., using Postman) to:  
 http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000      
-Remember to append the mentioned earlier endpoints and provide required request data 
+Remember to append the endpoints mentioned earlier and provide the required request data.
 
 
 
