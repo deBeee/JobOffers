@@ -14,7 +14,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @SpringBootApplication(exclude = {MongoReactiveAutoConfiguration.class})
 @EnableConfigurationProperties(value = {OfferHttpClientConfigurationProperties.class, JwtConfigurationProperties.class})
 @EnableMongoRepositories
-//@EnableRedisRepositories
+@EnableRedisRepositories
 @Log4j2
 public class JobOffersSpringBootApplication {
 

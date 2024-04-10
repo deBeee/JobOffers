@@ -1,6 +1,6 @@
 package com.junioroffers.infrastructure.offer.http;
 
-import com.junioroffers.domain.offer.JobOfferResponse;
+import com.junioroffers.domain.offer.dto.JobOfferResponse;
 import com.junioroffers.domain.offer.OfferFetchable;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
