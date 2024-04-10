@@ -2,16 +2,21 @@
 # JobOffers
 
 
-### Web application aimed at assisting Junior Java Developers in finding the optimal job offers!
+### Web application aimed at assisting Junior Java Developers in finding job offers!
 
-JobOffers is a web application built on Spring Boot, designed to aggregate job offers for
-Junior Java Developers. It retrieves offers from external server at
-scheduled intervals. Leveraging Spring Boot Security, the application ensures authentication process for users to access
-its functionalities. Users are required to register on the platform. Then, after successful login, they receive JWT
-token. This token should be included in the header of each
-request to authenticate the user enabling them to view existing offers and add new ones.
-For a user-friendly interface I have implemented intuitive frontend in Angular.
-Everything is deployed on AWS and can be accessed at:
+JobOffers is a web application built on Spring Boot.
+It’s main goal is to aggregate job offers for Junior Java Developers.
+It retrieves offers from external server at scheduled intervals and saves them in MongoDB database.
+Only authenticated users have access to the application.
+Authorization and authentication is implemented using Spring Boot Security and JWT tokens.
+Once user is successfully logged in he can view, add and search offers.
+Application has good coverage with unit and integration tests, including typical scenario test.
+Controllers are tested via mockMvc, external server with offers was stubbed using WireMock and MongoDB test instances are created using Testcontainers.
+For asynchronous scheduler testing Awaitility is used. Application also utilizes Redis for caching.
+It is implemented in modular monolithic hexagonal architecture and follows facade design pattern.
+Frontend is written in Angular accompanied by Tailwind CSS.
+Everything is containerized and deployed on AWS EC2 server. Nginx is used as web server.
+Application can be accessed at:
 
 http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com
 
