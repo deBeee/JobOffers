@@ -18,7 +18,7 @@ Frontend is written in Angular accompanied by Tailwind CSS.
 Everything is containerized and deployed on AWS EC2 server. Nginx is used as web server.
 Application can be accessed at:
 
-http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com
+http://ec2-3-66-167-195.eu-central-1.compute.amazonaws.com
 
 
 ### Specification
@@ -87,16 +87,16 @@ The application exposes the following endpoints:
 ### Usage
 **Using frontend:**
 
-Visit: http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com  
+Visit: http://ec2-3-66-167-195.eu-central-1.compute.amazonaws.com 
 Prior to accessing the application you must register new account and log in.
 Once logged in, you can access job offers, view specific offers by their ID, or create and save new job listings.
 
 **Using exposed endpoints:**
 
 To interact with the app, you can use Swagger:  
-http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
+http://ec2-3-66-167-195.eu-central-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
 Alternatively, you can manually send requests (e.g., using Postman) to:  
-http://ec2-3-75-193-77.eu-central-1.compute.amazonaws.com:8000      
+http://ec2-3-66-167-195.eu-central-1.compute.amazonaws.com:8000      
 Remember to append the endpoints mentioned earlier and provide the required request data.
 
 
